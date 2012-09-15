@@ -17,6 +17,9 @@
 * UV_EXTERN int uv_queue_work(uv_loop_t* loop, uv_work_t* req, uv_work_cb work_cb, uv_after_work_cb after_work_cb);
 * UV_EXTERN int uv_is_closing(const uv_handle_t* handle);
 
+* UV_EXTERN uv_err_t uv_get_process_title(char* buffer, size_t size);
+* UV_EXTERN uv_err_t uv_set_process_title(const char* title);
+
 # Not support
 
 * UV_EXTERN void uv_once(uv_once_t* guard, void (*callback)(void));
@@ -33,8 +36,6 @@ we don't support thread. so this function does not need.
 * UV_EXTERN void uv_dlerror_free(uv_lib_t library, const char *msg);
 
 * UV_EXTERN char** uv_setup_args(int argc, char** argv);
-* UV_EXTERN uv_err_t uv_get_process_title(char* buffer, size_t size);
-* UV_EXTERN uv_err_t uv_set_process_title(const char* title);
 
 * UV_EXTERN int uv_thread_create(uv_thread_t *tid,void (*entry)(void *arg), void *arg);
 * UV_EXTERN int uv_thread_join(uv_thread_t *tid);

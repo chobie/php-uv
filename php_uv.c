@@ -2781,6 +2781,10 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_uv_process_kill, 0, 0, 2)
 	ZEND_ARG_INFO(0, signal)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_INFO_EX(arginfo_uv_set_process_title, 0, 0, 1)
+	ZEND_ARG_INFO(0, title)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_INFO_EX(arginfo_uv_chdir, 0, 0, 1)
 	ZEND_ARG_INFO(0, dir)
 ZEND_END_ARG_INFO()
@@ -4994,6 +4998,46 @@ PHP_FUNCTION(uv_kill)
 }
 /* }}} */
 
+/* {{{ proto void uv_get_process_title()
+*/
+PHP_FUNCTION(uv_get_process_title)
+{
+	char buffer[512] = {0};
+	uv_err_t err;
+
+	err = uv_get_process_title(buffer, sizeof(buffer));
+
+	if (err.code == UV_OK) {
+		RETURN_STRING(buffer, 1);
+	} else {
+		RETURN_FALSE;
+	}
+}
+/* }}} */
+
+/* {{{ proto void uv_set_process_title(string $title)
+*/
+PHP_FUNCTION(uv_set_process_title)
+{
+	char *buffer;
+	int buffer_len = 0;
+	uv_err_t err;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC,
+		"s", &buffer, &buffer_len) == FAILURE) {
+		return;
+	}
+
+	err = uv_set_process_title(buffer);
+
+	if (err.code == UV_OK) {
+		RETURN_TRUE;
+	} else {
+		RETURN_FALSE;
+	}
+}
+/* }}} */
+
 /* {{{ proto bool uv_chdir(string $directory)
 */
 PHP_FUNCTION(uv_chdir)
@@ -6231,6 +6275,8 @@ static zend_function_entry uv_functions[] = {
 	PHP_FE(uv_spawn,                    NULL)
 	PHP_FE(uv_process_kill,             arginfo_uv_process_kill)
 	PHP_FE(uv_kill,                     arginfo_uv_kill)
+	PHP_FE(uv_get_process_title,        NULL)
+	PHP_FE(uv_set_process_title,        arginfo_uv_set_process_title)
 	/* rwlock */
 	PHP_FE(uv_rwlock_init,              NULL)
 	PHP_FE(uv_rwlock_rdlock,            arginfo_uv_rwlock_rdlock)
