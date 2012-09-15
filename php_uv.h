@@ -149,14 +149,6 @@ typedef struct {
 } php_uv_t;
 
 typedef struct {
-	ares_channel channel;
-	struct ares_options options;
-	zval *gethostbyname_cb;
-	zval *gethostbyaddr_cb;
-	int resource_id;
-} php_uv_ares_t;
-
-typedef struct {
 	int is_ipv4;
 	int resource_id;
 	union {
@@ -201,7 +193,6 @@ typedef struct {
 #define PHP_UV_RESOURCE_NAME "uv"
 #define PHP_UV_SOCKADDR_RESOURCE_NAME "uv_sockaddr"
 #define PHP_UV_LOOP_RESOURCE_NAME "uv_loop"
-#define PHP_UV_ARES_RESOURCE_NAME "uv_ares"
 #define PHP_UV_LOCK_RESOURCE_NAME "uv_lock"
 #define PHP_UV_MUTEX_RESOURCE_NAME "uv_mutex"
 #define PHP_UV_STDIO_RESOURCE_NAME "uv_stdio"
@@ -211,18 +202,6 @@ typedef struct {
 #define PHP_UV_LIST_INSERT(type, handle) zend_list_insert(type, handle TSRMLS_CC)
 #else
 #define PHP_UV_LIST_INSERT(type, handle) zend_list_insert(type, handle)
-#endif
-
-/* TODO: remove these macro when libuv provides uv_inet_ntop & uv_inet_pton */
-#ifdef PHP_WIN32
-# include "libuv/src/ares/inet_net_pton.h"
-# include <Ws2tcpip.h>
-# define uv_inet_pton ares_inet_pton
-# define uv_inet_ntop ares_inet_ntop
-#else
-# include <arpa/inet.h>
-# define uv_inet_pton inet_pton
-# define uv_inet_ntop inet_ntop
 #endif
 
 #endif /* PHP_UV_H */

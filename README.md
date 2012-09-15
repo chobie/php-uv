@@ -1476,13 +1476,6 @@ uv_run();
 
 ### void uv_pipe_pending_instances(resource $handle, long $count)
 
-
-### resource uv_ares_init_options(resource $loop, array $options, long $optmask)
-
-
-### void ares_gethostbyname(resource $handle, string $name, long $flag, callable $callback)
-
-
 ### array uv_loadavg(void)
 
 ##### *Description*

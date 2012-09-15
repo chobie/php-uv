@@ -1,5 +1,5 @@
 <?php
-
+/* TODO: remove ares
 $url = "http://yahoo.co.jp/";
 
 $parts = parse_url($url);
@@ -46,3 +46,4 @@ EOF;
 });
 
 uv_run();
+*/
