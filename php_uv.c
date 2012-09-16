@@ -4671,9 +4671,8 @@ PHP_FUNCTION(uv_exepath)
 	
 	buffer_sz = sizeof(buffer);
 	uv_exepath(buffer, &buffer_sz);
-	buffer[buffer_sz] = '\0';
 	
-	RETURN_STRINGL(buffer, buffer_sz, 1);
+	RETURN_STRING(buffer, 1);
 }
 /* }}} */
 
@@ -4685,7 +4684,6 @@ PHP_FUNCTION(uv_cwd)
 	size_t buffer_sz = sizeof(buffer);
 	
 	uv_cwd(buffer, buffer_sz);
-	buffer[buffer_sz] = '\0';
 	
 	RETURN_STRING(buffer, 1);
 }
