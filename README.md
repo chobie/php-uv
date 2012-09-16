@@ -1577,10 +1577,10 @@ var_dump(uv_get_total_memory());
 
 ### long uv_hrtime(void)
 
-##### *TODO*
+##### *Description*
 
-check implmentation
-
+returns high resolution time (nanoseconds).
+this function can't return correct value on some platform (e.g 32bit machine.)
 
 
 ### string uv_exepath(void)

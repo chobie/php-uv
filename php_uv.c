@@ -4657,8 +4657,22 @@ PHP_FUNCTION(uv_get_total_memory)
 */
 PHP_FUNCTION(uv_hrtime)
 {
-	/* TODO: is this correct? */
-	RETURN_LONG(uv_hrtime());
+	uint64_t hrtime;
+	
+	hrtime = uv_hrtime();
+
+	/**
+	 * uv_hrtime uses nanoseconds.
+	 * this function returns uncorrect value on some platform (e.g 32bit machine).
+	 *
+	 * TODO: fix this problem
+	 */
+	if (sizeof(long) > 4) {
+		RETURN_LONG(hrtime);
+	} else {
+		php_error_docref(NULL TSRMLS_CC, E_NOTICE, "uv_hrtime can't return correct value on this platform.");
+		RETURN_LONG(hrtime);
+	}
 }
 /* }}} */
 
