@@ -3,14 +3,17 @@ Check for uv_queue_work
 --FILE--
 <?php
 $loop = uv_default_loop();
+$buffer = "";
 
-$a = function(){
-    echo "[queue]";
+$a = function() use (&$buffer){
+    $buffer .= "[queue]";
 };
 
-$b = function(){
-    echo "[finished]";
+$b = function() use (&$buffer){
+    $buffer .= "[finished]";
+    echo $buffer;
 };
+
 $queue = uv_queue_work($loop, $a, $b);
 uv_run();
 --EXPECT--
