@@ -3363,7 +3363,7 @@ PHP_FUNCTION(uv_run_once)
 	
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC,
 		"|z",&zloop) == FAILURE) {
-		RETURN_LONG (0);
+		RETURN_LONG (-1);
 	}
 	PHP_UV_FETCH_UV_DEFAULT_LOOP(loop, zloop);
 	
