@@ -3367,7 +3367,7 @@ PHP_FUNCTION(uv_run_once)
 	}
 	PHP_UV_FETCH_UV_DEFAULT_LOOP(loop, zloop);
 	
-	uv_run_once(loop);
+	uv_run(loop, UV_RUN_ONCE);
 }
 /* }}} */
 
